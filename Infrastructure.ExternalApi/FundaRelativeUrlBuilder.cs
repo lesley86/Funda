@@ -13,9 +13,9 @@ namespace Application
             return this;
         }
 
-        public string Build(string key, string aanbodType, List<string> locations, Tuin? tuin, int page, int pageSize)
+        public string Build(string key, string aanbodType, List<string> locations, int page, int pageSize)
         {
-            if(!locations.Any() || string.IsNullOrWhiteSpace(aanbodType) || page < 0 || pageSize < 0 || string.IsNullOrWhiteSpace(key))
+            if(locations == null || !locations.Any() || string.IsNullOrWhiteSpace(aanbodType) || page < 0 || pageSize < 0 || string.IsNullOrWhiteSpace(key))
             {
                 throw new RequiredDataMissing();
             }

@@ -1,9 +1,5 @@
 using Application;
-using AutoMapper;
-using Funda;
 using Infrastructure.ExternalApi;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.DependencyInjection;
 using NLog.Extensions.Logging;
 
 var builder = WebApplication.CreateBuilder(args);

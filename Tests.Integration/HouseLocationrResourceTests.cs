@@ -1,8 +1,8 @@
 
 using Application;
 using Application.FundaExternalApiModels;
+using Core.Models;
 using FluentAssertions;
-using Funda;
 using Microsoft.AspNetCore.TestHost;
 using Moq;
 using NUnit.Framework;
@@ -43,12 +43,12 @@ namespace Test.Core
 
 			using var request = new HttpRequestMessage(HttpMethod.Get, $"/api/MakelaarHouses");
 			var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
-			var actual = await response.Content.ReadFromJsonAsync<IEnumerable<MakelaarWithObjectCountResponseModel>>();
+			var actual = await response.Content.ReadFromJsonAsync<MakelaarWithTuinAndLocationResponseModel>();
 
-			actual!.ElementAt(0).MakelaarId.Should().Be("2");
-			actual!.ElementAt(0).ObjectCount.Should().Be(2);
-			actual!.ElementAt(1).MakelaarId.Should().Be("1");
-			actual!.ElementAt(1).ObjectCount.Should().Be(1);
+			actual!.MakelaarWithObjectsForSaleInLocation.ElementAt(0).MakelaarId.Should().Be("2");
+			actual!.MakelaarWithObjectsForSaleInLocation.ElementAt(0).ObjectCount.Should().Be(2);
+			actual!.MakelaarWithObjectsForSaleInLocation.ElementAt(1).MakelaarId.Should().Be("1");
+			actual!.MakelaarWithObjectsForSaleInLocation.ElementAt(1).ObjectCount.Should().Be(1);
 		}
 
 		private void ConfigureTestServices(IServiceCollection services)

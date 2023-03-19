@@ -1,8 +1,7 @@
 ﻿using Application;
 using AutoMapper;
+using Core.Models;
 using Microsoft.AspNetCore.Mvc;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Funda.Controllers
 {
@@ -25,8 +24,8 @@ namespace Funda.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var filteredHouses = await fundaService.GetHouses();
-            var result = mapper.Map<IEnumerable<MakelaarWithObjectCountResponseModel>>(filteredHouses);
+            var makerlaarsWithHighestObjectCount = await fundaService.GetHouses();
+            var result = mapper.Map<MakelaarWithTuinAndLocationResponseModel> (makerlaarsWithHighestObjectCount);
 
 			return Ok(result);
         }  

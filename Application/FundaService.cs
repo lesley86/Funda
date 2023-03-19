@@ -15,15 +15,21 @@ namespace Application
             this.fundaKeyService = fundaKeyService;
         }
 
-        public async Task<IEnumerable<MakelaarWithObjectCount>> GetHouses()
+        public async Task<MakelaarWithTuinAndLocation> GetHouses()
         {
-            var groupedMakelaars = await GetMakelaarsForLocation();
-            return groupedMakelaars;
+            var readModelForHousesInLocation = await GetMakelaarsForLocation();
+			var readModelForHousesWithTuin = await GetMakelaarsWithTuin();
+			return new MakelaarWithTuinAndLocation(readModelForHousesInLocation, readModelForHousesWithTuin);
 		}
 
         private async Task<IEnumerable<MakelaarWithObjectCount>> GetMakelaarsForLocation()
         {
             var houses = await fundaServiceRepository.GetAsync(fundaKeyService.Get(), "koop", new List<string> { "amsterdam" }, null, 1, 25);
+            if(houses?.Objects == null)
+            {
+                return Enumerable.Empty<MakelaarWithObjectCount>();
+            }
+
             var result = houses.Objects.GroupBy(houseObject => houseObject.MakelaarId)
                                        .Select(groupedObject => new MakelaarWithObjectCount(groupedObject.Key.ToString(), groupedObject.First().MakelaarNaam, groupedObject.Count()));
 
@@ -33,6 +39,11 @@ namespace Application
 		private async Task<IEnumerable<MakelaarWithObjectCount>> GetMakelaarsWithTuin()
         {
             var houses = await fundaServiceRepository.GetAsync(fundaKeyService.Get(), "koop", new List<string> { "amsterdam" }, new Tuin(), 1, 25);
+			if (houses?.Objects == null)
+			{
+				return Enumerable.Empty<MakelaarWithObjectCount>();
+			}
+
 			var result = houses.Objects.GroupBy(houseObject => houseObject.MakelaarId)
 									.Select(groupedObject => new MakelaarWithObjectCount(groupedObject.Key.ToString(), groupedObject.First().MakelaarNaam, groupedObject.Count()));
 

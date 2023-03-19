@@ -24,7 +24,7 @@ namespace Infrastructure.ExternalApi
 		public Task<FundaExternalApiGetHousesResponse> GetAsync(string key, string aanbodType, List<string> locations, Tuin? tuin, int page, int pageSize)
 		{
 			var relativeUrl = relativeUrlBuilder.WithTuin(tuin!)
-				.Build(key, aanbodType, locations, tuin, page, pageSize);
+				.Build(key, aanbodType, locations, page, pageSize);
 
 			return httpClientWrapper.GetAsync<FundaExternalApiGetHousesResponse>($"{externalApiBaseUrlOptions.FundaBaseUrl}/{relativeUrl}");
 		}

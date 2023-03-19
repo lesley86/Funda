@@ -8,6 +8,7 @@ namespace Funda
 		public MakelaarWithObjectCountProfile()
 		{
 			CreateMap<MakelaarWithObjectCount, MakelaarWithObjectCountResponseModel>();
+			CreateMap<MakelaarWithTuinAndLocation, MakelaarWithTuinAndLocationResponseModel>();
 		}
 	}
 }

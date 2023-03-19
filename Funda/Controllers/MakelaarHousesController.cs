@@ -25,7 +25,7 @@ namespace Funda.Controllers
         public async Task<IActionResult> Get()
         {
             var makerlaarsWithHighestObjectCount = await fundaService.GetHouses();
-            var result = mapper.Map<MakelaarWithTuinAndLocationResponseModel> (makerlaarsWithHighestObjectCount);
+            var result = mapper.Map<MakelaarWithTuinAndLocationResponseModel>(makerlaarsWithHighestObjectCount);
 
 			return Ok(result);
         }  

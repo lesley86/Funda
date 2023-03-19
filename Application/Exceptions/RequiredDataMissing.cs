@@ -1,6 +1,6 @@
 ﻿namespace Application.Exceptions
 {
-	public class RequiredDataMissing : ValidationException
+	public class RequiredDataMissing : Exception
 	{
 	}
 }

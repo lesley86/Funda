@@ -1,4 +1,5 @@
 using Application;
+using Funda.ErrorHandling;
 using Infrastructure.ExternalApi;
 using NLog.Extensions.Logging;
 
@@ -49,6 +50,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseHttpsRedirection();
 

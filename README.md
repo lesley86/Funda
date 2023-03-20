@@ -24,7 +24,7 @@
 - Rest Client Used but since it's an instance, I wrapped it in a class for better unit tests
 - Unit tests are done with fluent assertions, Nunit And Moq.
 - Integration tests are done with an in-memory web server
-- I wanted to read every page from the api but when I modified the page the HuidigePagina didn't change however if changed the url from &page=2 to p2 it would work. I left the implementation in the code but it's not used to show I considered it but it may not have been what you wanted? 
+- I wanted to read every page from the api but when I modified the page the HuidigePagina didn't change however if changed the url from &page=2 to p2 it would work. I left the implementation in the code but it's not used, to show I considered it but it may not have been what you wanted? 
 
 ## Improvements
 - Add A Distributed cache for scale
@@ -35,4 +35,4 @@
 - If this data is huge pulling it into memory is going to cost a significant amount of resources. Perhaps a suggestion would be to ask the dev team to create common queries as a report.
 - The data seems unstructured a NO Sql database would be better but at the very least remove the in-memory SQL implementation.
 - The Sql implementation needs support for transient failures, retry logic and stale data, potentially unit of work.
-- logging to written to cloud provider such as application insights
+- logging to be written to a cloud provider such as application insights right now it's being written to a file.

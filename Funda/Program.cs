@@ -1,7 +1,11 @@
 using Application;
+using Application.Queries;
+using Core.Repository;
 using Funda.ErrorHandling;
 using Infrastructure.ExternalApi;
 using NLog.Extensions.Logging;
+using Infrastructure.Persistence.Sql;
+using Infrastructure.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,13 +26,11 @@ builder.Services.AddControllers()
         options.JsonSerializerOptions.PropertyNamingPolicy = null;
     });
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddLogging(loggingBuilder =>
 {
-    // configure Logging with NLog
     loggingBuilder.ClearProviders();
     loggingBuilder.SetMinimumLevel(LogLevel.Trace);
     loggingBuilder.AddNLog(config);
@@ -41,10 +43,19 @@ builder.Services.AddScoped<IFundaRelativeUrlBuilder, FundaRelativeUrlBuilder>();
 builder.Services.AddScoped<IHttpClientWrapper, HttpClientWrapper>();
 builder.Services.AddScoped<IPollyAsyncRetryPolicy, PollyAsyncRetryPolicy>();
 
+builder.Services.AddScoped<IHouseRepository, HouseRepository>();
+builder.Services.AddDbContext<ApiContext>();
+
 builder.Services.AddAutoMapper(typeof(Program));
+
+builder.Services.AddMemoryCache();
+builder.Services.AddMediatR(cfg =>
+{
+	cfg.RegisterServicesFromAssemblies(typeof(GetHousesQuery).Assembly, typeof(GetHousesQueryHandler).Assembly);
+});
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

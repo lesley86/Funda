@@ -1,9 +1,14 @@
-﻿namespace Application
+﻿using Core;
+
+namespace Application
 {
-    public interface IFundaRelativeUrlBuilder
+	public interface IFundaRelativeUrlBuilder
     {
         IFundaRelativeUrlBuilder WithTuin(Tuin tuin);
 
-        string Build(string key, string aanbodType, List<string> locations, int page, int pageSize);
+		IFundaRelativeUrlBuilder WithStatus(string? status);
+
+
+		string Build(string key, string aanbodType, List<string> locations, int page, int pageSize);
     }
 }

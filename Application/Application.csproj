@@ -8,6 +8,8 @@
 
   <ItemGroup>
     <PackageReference Include="Macross.Json.Extensions" Version="3.0.0" />
+    <PackageReference Include="MediatR" Version="12.0.1" />
+    <PackageReference Include="System.Runtime.Caching" Version="7.0.0" />
     <PackageReference Include="System.ServiceModel.Http" Version="4.10.0" />
     <PackageReference Include="System.ServiceModel.Primitives" Version="4.10.0" />
     <PackageReference Include="System.Text.Json" Version="7.0.2" />
@@ -15,6 +17,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Commands\" />
   </ItemGroup>
 
 </Project>

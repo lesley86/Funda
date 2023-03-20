@@ -1,17 +1,20 @@
 using Application;
 using Application.FundaExternalApiModels;
 using AutoFixture;
+using Core;
+using Core.Repository;
 using FluentAssertions;
 using Moq;
 
 namespace Tests.Unit.Application
 {
-    [TestFixture]
+	[TestFixture]
     public class Tests
     {
         private Mock<IFundaKeyService> fundaKeyServiceMock;
         private Mock<IFundaExternalApi> fundaExternalApiMock;
-        private Fixture fixture;
+		private Mock<IHouseRepository> houseRepositoryMock;
+		private Fixture fixture;
         private FundaService fundaService;
 
         [SetUp]
@@ -19,8 +22,9 @@ namespace Tests.Unit.Application
         {
             fundaKeyServiceMock = new Mock<IFundaKeyService>();
             fundaExternalApiMock = new Mock<IFundaExternalApi>();
-            fixture = new Fixture();
-            fundaService = new FundaService(fundaExternalApiMock.Object, fundaKeyServiceMock.Object);
+			houseRepositoryMock = new Mock<IHouseRepository>();
+			fixture = new Fixture();
+            fundaService = new FundaService(fundaExternalApiMock.Object, fundaKeyServiceMock.Object, houseRepositoryMock.Object);
         }
 
         [Test]
@@ -68,7 +72,7 @@ namespace Tests.Unit.Application
 
         private void SetupExternalApi(FundaExternalApiGetHousesResponse responseFromExternalApi)
         {
-            fundaExternalApiMock.Setup(x => x.GetAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<List<string>>(), It.IsAny<Tuin>(), It.IsAny<int>(), It.IsAny<int>()))
+            fundaExternalApiMock.Setup(x => x.GetAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<List<string>>(), It.IsAny<Tuin>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>()))
                             .ReturnsAsync(responseFromExternalApi);
         }
 

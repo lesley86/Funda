@@ -1,6 +1,5 @@
 ﻿namespace Application.FundaExternalApiModels
 {
-	// Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
 	public class FundaExternalApiMetadataResponse
 	{
 		public string ObjectType { get; set; }

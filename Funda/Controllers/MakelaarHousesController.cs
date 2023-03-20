@@ -1,7 +1,10 @@
 ﻿using Application;
+using Application.Queries;
 using AutoMapper;
 using Core.Models;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace Funda.Controllers
 {
@@ -9,23 +12,31 @@ namespace Funda.Controllers
     [ApiController]
     public class MakelaarHousesController : ControllerBase
     {
-        private readonly IFundaService fundaService;
 		private readonly IMapper mapper;
+        private readonly IMemoryCache memoryCache;
+		private readonly IMediator mediator;
 
-		public MakelaarHousesController(
-            IFundaService fundaService,
-            IMapper mapper)
+		public MakelaarHousesController(        
+            IMapper mapper,
+			IMemoryCache memoryCache,
+            IMediator mediator)
         {
-            this.fundaService = fundaService;
 			this.mapper = mapper;
+			this.memoryCache = memoryCache;
+			this.mediator = mediator;
 		}
 
 
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var makerlaarsWithHighestObjectCount = await fundaService.GetHouses();
-            var result = mapper.Map<MakelaarWithTuinAndLocationResponseModel>(makerlaarsWithHighestObjectCount);
+            MakelaarWithTuinAndLocationResponseModel result;
+			if (!memoryCache.TryGetValue(CacheKeys.TopHousesForSaleInAmsterdam, out result))
+			{
+				var makerlaarsWithHighestObjectCount = await mediator.Send(new GetHousesQuery());
+                result = mapper.Map<MakelaarWithTuinAndLocationResponseModel>(makerlaarsWithHighestObjectCount);
+				memoryCache.Set(CacheKeys.TopHousesForSaleInAmsterdam, result, TimeSpan.FromDays(1));
+			}
 
 			return Ok(result);
         }  

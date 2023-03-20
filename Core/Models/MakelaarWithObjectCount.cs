@@ -8,11 +8,13 @@
 
         public int ObjectCount { get; set; }
 
-        public MakelaarWithObjectCount(string makelaarId, string makelaarName, int objectCount)
+        public bool Tuin { get; set; }
+        public MakelaarWithObjectCount(string makelaarId, string makelaarName, int objectCount, bool tuin)
         {
             MakelaarId = makelaarId;
             MakelaarName = makelaarName;
             ObjectCount = objectCount;
-        }
+			Tuin = tuin;
+		}
     }
 }

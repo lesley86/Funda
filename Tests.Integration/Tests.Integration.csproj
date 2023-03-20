@@ -20,7 +20,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Application\Application.csproj" />
     <ProjectReference Include="..\Core\Core.csproj" />
-    <ProjectReference Include="..\Funda\Funda.csproj" />
+    <ProjectReference Include="..\Funda\Funda.Api.csproj" />
     <ProjectReference Include="..\Infrastructure.ExternalApi\Infrastructure.ExternalApi.Funda.csproj" />
   </ItemGroup>
 

@@ -1,6 +1,7 @@
 ﻿using Application;
 using Application.Exceptions;
 using AutoFixture;
+using Core;
 using FluentAssertions;
 
 namespace Tests.Unit.ExteternalApi.Funda
@@ -53,6 +54,47 @@ namespace Tests.Unit.ExteternalApi.Funda
 
 			// Act
 			var actual = fundaRelativeUrlBuilder.WithTuin(tuin).Build(key, aanbodType, locations, page, pageSize);
+
+			// Assert
+			actual.Should().Be(expected);
+
+		}
+
+		[Test]
+		public void ShouldReturnAUrlWithNoStatusIfNotSpecified()
+		{
+			// Arrange
+			var key = fixture.Create<string>();
+			var aanbodType = fixture.Create<string>();
+			var locations = fixture.CreateMany<string>(1).ToList();
+			var page = fixture.Create<int>();
+			var pageSize = fixture.Create<int>();
+
+			var expected = $"/json/{key}?type={aanbodType}&zo=/{string.Join(",", locations)}/&page={page}&pagesize={pageSize}";
+
+			// Act
+			var actual = fundaRelativeUrlBuilder.Build(key, aanbodType, locations, page, pageSize);
+
+			// Assert
+			actual.Should().Be(expected);
+
+		}
+
+		[Test]
+		public void ShouldReturnStatusInUrlIfItIsSpecified()
+		{
+			// Arrange
+			var key = fixture.Create<string>();
+			var aanbodType = fixture.Create<string>();
+			var locations = fixture.CreateMany<string>(1).ToList();
+			var page = fixture.Create<int>();
+			var pageSize = fixture.Create<int>();
+			var status = fixture.Create<string>();
+
+			var expected = $"/json/{key}?type={aanbodType}&zo=/{string.Join(",", locations)}/{status}/&page={page}&pagesize={pageSize}";
+
+			// Act
+			var actual = fundaRelativeUrlBuilder.WithStatus(status).Build(key, aanbodType, locations, page, pageSize);
 
 			// Assert
 			actual.Should().Be(expected);

@@ -8,7 +8,7 @@
 ## Project Breakdown
 
 - Funda Api is the entry point through the MakelaarHousesController
-- Used the onion architect and therefore core is strictly business logic. Since I could not distinguish any, the core project is light.
+- Used the onion architect and therefore core is strictly business logic. Therefore most of the files are in application. I tried to keep core only for logic but there was no complex logic and moving the fundaService into the core without creating models that replicate the entities for the external call. I would have external entity models knowledge within my core domain project.
 - Application contains funda application service which is the main coordinator for the funda call.
 - Infrastructure.Api.Funda - contains the rest client used for interacting with the Funda service
 

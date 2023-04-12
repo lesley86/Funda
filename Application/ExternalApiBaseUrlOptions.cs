@@ -2,6 +2,6 @@
 {
 	public class ExternalApiBaseUrlOptions
 	{
-		public string FundaBaseUrl { get; set; }
+		public string CocktailBaseUrl { get; set; }
 	}
 }

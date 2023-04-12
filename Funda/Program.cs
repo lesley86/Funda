@@ -6,8 +6,10 @@ using Infrastructure.ExternalApi;
 using NLog.Extensions.Logging;
 using Infrastructure.Persistence.Sql;
 using Infrastructure.Persistence;
+using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 builder.Services.AddHttpClient();
 
@@ -23,8 +25,8 @@ builder.Services.Configure<ExternalApiBaseUrlOptions>(builder.Configuration.GetS
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
-        options.JsonSerializerOptions.PropertyNamingPolicy = null;
-    });
+		options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+	});
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -36,10 +38,22 @@ builder.Services.AddLogging(loggingBuilder =>
     loggingBuilder.AddNLog(config);
 });
 
-builder.Services.AddScoped<IFundaService, FundaService>();
-builder.Services.AddScoped<IFundaKeyService, FundaKeyService>();
-builder.Services.AddScoped<IFundaExternalApi, FundaExternalApi>();
-builder.Services.AddScoped<IFundaRelativeUrlBuilder, FundaRelativeUrlBuilder>();
+builder.Services.AddCors(options =>
+{
+	options.AddPolicy(MyAllowSpecificOrigins,
+						  policy =>
+						  {
+							  policy.WithOrigins("http://localhost:5173",
+												  "http://www.localhost")
+												  .AllowAnyHeader()
+												  .AllowAnyMethod();
+						  });
+});
+
+
+builder.Services.AddScoped<ICocktailService, CocktailService>();
+builder.Services.AddScoped<IkeyProvider, FundaKeyService>();
+builder.Services.AddScoped<IExternalCocktailApi, ExternalCocktailApi>();
 builder.Services.AddScoped<IHttpClientWrapper, HttpClientWrapper>();
 builder.Services.AddScoped<IPollyAsyncRetryPolicy, PollyAsyncRetryPolicy>();
 
@@ -51,10 +65,12 @@ builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddMemoryCache();
 builder.Services.AddMediatR(cfg =>
 {
-	cfg.RegisterServicesFromAssemblies(typeof(GetHousesQuery).Assembly, typeof(GetHousesQueryHandler).Assembly);
+	cfg.RegisterServicesFromAssemblies(typeof(GetCategoriesQuery).Assembly, typeof(GetCategoriesQueryHandler).Assembly);
 });
 
 var app = builder.Build();
+
+app.UseCors(MyAllowSpecificOrigins);
 
 if (app.Environment.IsDevelopment())
 {

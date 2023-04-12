@@ -11,11 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Application\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure.ExternalApi.Funda", "Infrastructure.ExternalApi\Infrastructure.ExternalApi.Funda.csproj", "{69706675-54D2-477E-8A54-D9B8BC1A625F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Funda.Api", "Funda\Funda.Api.csproj", "{12C8E77C-9267-4CE2-ABC9-2BFDE6BB9D47}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api", "Funda\Api.csproj", "{12C8E77C-9267-4CE2-ABC9-2BFDE6BB9D47}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests.Integration", "Tests.Integration\Tests.Integration.csproj", "{A2028C34-D13B-47D4-9311-EB70E5F619DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Persistence.Sql", "Infrastructure.Persistence\Infrastructure.Persistence.Sql.csproj", "{658407BE-CADA-47D5-9A95-BDF24E485C8E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure.Persistence.Sql", "Infrastructure.Persistence\Infrastructure.Persistence.Sql.csproj", "{658407BE-CADA-47D5-9A95-BDF24E485C8E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

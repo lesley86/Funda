@@ -2,13 +2,13 @@
 {
 	public class MakelaarWithTuinAndLocation
 	{
-		public IEnumerable<MakelaarWithObjectCount> MakelaarWithObjectsForSaleInLocation { get; init; }
+		public IEnumerable<DrinkCategory> MakelaarWithObjectsForSaleInLocation { get; init; }
 
-		public IEnumerable<MakelaarWithObjectCount> MakelaarWithObjectsForSaleInLocationWithTuin { get; init; }
+		public IEnumerable<DrinkCategory> MakelaarWithObjectsForSaleInLocationWithTuin { get; init; }
 
 		public MakelaarWithTuinAndLocation(
-			IEnumerable<MakelaarWithObjectCount> makelaarWithObjectsForSaleInLocation,
-			IEnumerable<MakelaarWithObjectCount> MakelaarWithObjectsForSaleInLocationWithTuin)
+			IEnumerable<DrinkCategory> makelaarWithObjectsForSaleInLocation,
+			IEnumerable<DrinkCategory> MakelaarWithObjectsForSaleInLocationWithTuin)
 		{
 			MakelaarWithObjectsForSaleInLocation = makelaarWithObjectsForSaleInLocation;
 			this.MakelaarWithObjectsForSaleInLocationWithTuin = MakelaarWithObjectsForSaleInLocationWithTuin;

@@ -10,13 +10,13 @@ namespace Funda.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MakelaarHousesController : ControllerBase
+    public class CocktailCatgoryController : ControllerBase
     {
 		private readonly IMapper mapper;
         private readonly IMemoryCache memoryCache;
 		private readonly IMediator mediator;
 
-		public MakelaarHousesController(        
+		public CocktailCatgoryController(        
             IMapper mapper,
 			IMemoryCache memoryCache,
             IMediator mediator)
@@ -30,12 +30,12 @@ namespace Funda.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            MakelaarWithTuinAndLocationResponseModel result;
-			if (!memoryCache.TryGetValue(CacheKeys.TopHousesForSaleInAmsterdam, out result))
+			IEnumerable<CocktailCategoryResponseModel> result;
+			if (!memoryCache.TryGetValue(CacheKeys.DrinkCategories, out result))
 			{
-				var makerlaarsWithHighestObjectCount = await mediator.Send(new GetHousesQuery());
-                result = mapper.Map<MakelaarWithTuinAndLocationResponseModel>(makerlaarsWithHighestObjectCount);
-				memoryCache.Set(CacheKeys.TopHousesForSaleInAmsterdam, result, TimeSpan.FromDays(1));
+				var drinkCategories = await mediator.Send(new GetCategoriesQuery());
+                result = mapper.Map<IEnumerable<CocktailCategoryResponseModel>>(drinkCategories);
+				memoryCache.Set(CacheKeys.DrinkCategories, result, TimeSpan.FromDays(1));
 			}
 
 			return Ok(result);

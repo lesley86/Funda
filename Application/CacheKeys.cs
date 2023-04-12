@@ -2,6 +2,6 @@
 {
 	public static class CacheKeys
 	{
-		public static string TopHousesForSaleInAmsterdam = nameof(TopHousesForSaleInAmsterdam);
+		public static string DrinkCategories = nameof(DrinkCategories);
 	}
 }

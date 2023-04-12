@@ -25,4 +25,8 @@
     <ProjectReference Include="..\Infrastructure.ExternalApi\Infrastructure.ExternalApi.Funda.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ExteternalApi.Funda\" />
+  </ItemGroup>
+
 </Project>

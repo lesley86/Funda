@@ -24,8 +24,6 @@ namespace Infrastructure.ExternalApi
 			int timeoutInSeconds = 3;
 
 
-			// Specify the type of exception that our policy can handle.
-			// Alternately, we could specify the return results we would like to handle.
 			var policyBuilder = Policy<TResponseMessage>
 				.Handle<Exception>();
 
@@ -87,7 +85,6 @@ namespace Infrastructure.ExternalApi
 				.Handle<BrokenCircuitException>()
 				.FallbackAsync((calcellationToken) =>
 				{
-					// In our case we return a null response.
 					logger.LogDebug($"{DateTime.Now:u} - The Circuit is Open (blocked) for this Provider. A fallback null value is returned. Try again later.");
 
 					throw new NetworkUnreachableException();

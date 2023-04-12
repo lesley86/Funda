@@ -1,6 +1,6 @@
 ﻿namespace Application
 {
-    public interface IFundaKeyService
+    public interface IkeyProvider
     {
         string Get();
     }

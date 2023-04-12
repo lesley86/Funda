@@ -3,7 +3,7 @@ using MediatR;
 
 namespace Application.Queries
 {
-	public class GetHousesQuery : IRequest<MakelaarWithTuinAndLocation>
+	public class GetCategoriesQuery : IRequest<IEnumerable<DrinkCategory>>
 	{
 	}
 }
